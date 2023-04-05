@@ -9,12 +9,14 @@ Player::Player(string name_p)
     this->playername = name_p;
     this->has_played = 0;
     this->cardsTaken = 0;
+    this->winCount = 0;
 }
 Player::Player()
 {
     this->playername = "anonymous";
     this->has_played = 0;
     this->cardsTaken = 0;
+    this->winCount = 0;
 }
 int Player::get_hasPlayed()
 {

@@ -19,6 +19,8 @@ Game::Game(Player &p1, Player &p2) : p1(p1), p2(p2)
         }
         else
         {
+            this->rounds = 0;
+            this->tekoTimeCount = 0;
             this->allMooves1.clear();
             this->allMooves2.clear();
 
@@ -124,6 +126,7 @@ void Game::Dealing_cards() // Dealing the cards to the players
 /*******************************************************************************************************************************/
 void Game::playTurn()
 {
+    this->roundsAdd();
     if (this->getgameAlive() == 0 || (this->p1.getName() == this->p2.getName())) // game over
     {
         throw string("cant play again\n");
@@ -156,6 +159,7 @@ void Game::playTurn()
 
     if ((card1.getRank() > card2.getRank()) || (card1.getRank() == 2 && card2.getRank() == 14)) // p1 win
     {
+        this->p1.winCountAdd();
         this->winTurn = this->p1.getName();
         this->p1.setcardsTaken(this->p1.getcardsTaken() + 2);
         this->p1.setcardsTaken(this->p1.getcardsTaken() + (this->geteko_time() * 4));
@@ -173,6 +177,7 @@ void Game::playTurn()
 
     else if ((card1.getRank() < card2.getRank()) || (card1.getRank() == 14 && card2.getRank() == 2)) // p2 win
     {
+        this->p2.winCountAdd();
         this->winTurn = this->p2.getName();
         this->p2.setcardsTaken(this->p2.getcardsTaken() + 2);
         this->p2.setcardsTaken(this->p2.getcardsTaken() + (this->geteko_time() * 4));
@@ -191,6 +196,7 @@ void Game::playTurn()
 
     else if (card1.getRank() == card2.getRank()) // teko
     {
+        this->tekoTimeCountAdd();
         if (this->p1.cardsToPlaySize() == 0) // this is the last card
         {
             this->winTurn = "teko";
@@ -312,4 +318,24 @@ void Game::printLog()
     cout << " win\n";
 }
 /*******************************************************************************************************************************/
-void Game::printStats() {}
+void Game::printStats()
+{
+    int rounds = 26 - this->geteko_time();
+    double sec1 = (p1.getWinsOfRounds() * 100) / this->getrounds();
+    double sec2 = (p2.getWinsOfRounds() * 100) / this->getrounds();
+    double tekostatic = (this->getTekoTime() * 100) / this->getrounds();
+
+    cout << "player 1 - ";
+    cout << this->p1.getName();
+    cout << " win ";
+    cout << this->p1.getWinsOfRounds() << " times, from " << rounds << " rounds.(without the teko time)\n";
+    cout << "winning percentage: " << sec1 << "%\n";
+
+    cout << "player 2 - ";
+    cout << this->p2.getName();
+    cout << " win ";
+    cout << this->p2.getWinsOfRounds() << " times, from " << rounds << " rounds.(without the teko time)\n";
+    cout << "winning percentage: " << sec2 << "%\n";
+    cout << "teko times: " << this->getTekoTime() << "\n";
+    cout << "teko percentage: " << tekostatic << "%\n";
+}

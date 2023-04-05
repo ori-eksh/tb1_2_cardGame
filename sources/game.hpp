@@ -22,8 +22,9 @@ private:
 
     vector<Card> allMooves1;
     vector<Card> allMooves2;
-
+    int tekoTimeCount;
     int teko_time;
+    int rounds;
 
 public:
     Game(Player &pp1, Player &pp2);
@@ -41,12 +42,16 @@ public:
     void printStats();
     Player getPlayer1(); //
     Player getPlayer2(); //
-
+    void tekoTimeCountAdd() { tekoTimeCount++; }
+    int getTekoTime() const { return tekoTimeCount; }
     int geteko_time() const { return teko_time; }
     void setteko_time(int num) { this->teko_time = num; }
 
     int getgameAlive() const { return gameAlive; }
     void setgameAlive(int num) { this->gameAlive = num; }
+
+    void roundsAdd() { rounds++; }
+    int getrounds() const { return rounds; }
 };
 
 #endif

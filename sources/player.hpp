@@ -15,6 +15,7 @@ private:
     int has_played;
     int cardsTaken;
     vector<Card> cardsToPlay;
+    int winCount;
 
 public:
     Card getBackCardsToPlay();
@@ -36,6 +37,8 @@ public:
     int stacksize();
     int cardesTaken();
     string getName();
+    void winCountAdd() { winCount++; }
+    int getWinsOfRounds() const { return winCount; }
 };
 
 #endif
