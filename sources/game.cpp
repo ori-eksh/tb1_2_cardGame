@@ -351,4 +351,5 @@ void Game::printStats()
     cout << "winning percentage: " << sec2 << "%\n";
     cout << "teko times: " << this->getTekoTime() << "\n";
     cout << "teko percentage: " << tekostatic << "%\n";
+    // ori
 }
