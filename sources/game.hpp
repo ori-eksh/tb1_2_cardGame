@@ -43,8 +43,8 @@ public:
     Player getPlayer1(); //
     Player getPlayer2(); //
     void tekoTimeCountAdd() { tekoTimeCount++; }
-    int getTekoTime() const { return tekoTimeCount; }
-    int geteko_time() const { return teko_time; }
+    int getTekoTime() const { return tekoTimeCount; } // in all the game
+    int geteko_time() const { return teko_time; }     // in this round
     void setteko_time(int num) { this->teko_time = num; }
 
     int getgameAlive() const { return gameAlive; }

@@ -37,7 +37,7 @@ public:
     int stacksize();
     int cardesTaken();
     string getName();
-    void winCountAdd() { winCount++; }
+    void winCountAdd() { winCount = winCount + 1; }
     int getWinsOfRounds() const { return winCount; }
 };
 

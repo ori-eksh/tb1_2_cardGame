@@ -126,7 +126,6 @@ void Game::Dealing_cards() // Dealing the cards to the players
 /*******************************************************************************************************************************/
 void Game::playTurn()
 {
-    this->roundsAdd();
     if (this->getgameAlive() == 0 || (this->p1.getName() == this->p2.getName())) // game over
     {
         throw string("cant play again\n");
@@ -146,6 +145,13 @@ void Game::playTurn()
         this->lastMoove1.clear();
         this->lastMoove2.clear();
     }
+    if (this->geteko_time() == 0)
+    {
+        roundsAdd();
+    }
+
+    this->allMooves1.push_back(p1.getBackCardsToPlay());
+    this->allMooves2.push_back(p2.getBackCardsToPlay());
 
     Card card1 = this->p1.getBackCardsToPlay();
     Card card2 = this->p2.getBackCardsToPlay();
@@ -154,12 +160,12 @@ void Game::playTurn()
     this->lastMoove1.push_back(card1);
     this->lastMoove2.push_back(card2);
 
-    this->allMooves1.push_back(card1);
-    this->allMooves2.push_back(card2);
+    // this->allMooves1.push_back(card1);
+    // this->allMooves2.push_back(card2);
 
-    if ((card1.getRank() > card2.getRank()) || (card1.getRank() == 2 && card2.getRank() == 14)) // p1 win
+    if ((card1.getRank() == 2 && card2.getRank() == 14) || (card1.getRank() > card2.getRank())) // p1 win
     {
-        this->p1.winCountAdd();
+        this->p1.winCountAdd(); // winning times in the game
         this->winTurn = this->p1.getName();
         this->p1.setcardsTaken(this->p1.getcardsTaken() + 2);
         this->p1.setcardsTaken(this->p1.getcardsTaken() + (this->geteko_time() * 4));
@@ -175,9 +181,9 @@ void Game::playTurn()
         }
     }
 
-    else if ((card1.getRank() < card2.getRank()) || (card1.getRank() == 14 && card2.getRank() == 2)) // p2 win
+    else if ((card1.getRank() == 14 && card2.getRank() == 2) || (card1.getRank() < card2.getRank())) // p2 win
     {
-        this->p2.winCountAdd();
+        this->p2.winCountAdd(); // winning times in the game
         this->winTurn = this->p2.getName();
         this->p2.setcardsTaken(this->p2.getcardsTaken() + 2);
         this->p2.setcardsTaken(this->p2.getcardsTaken() + (this->geteko_time() * 4));
@@ -196,9 +202,11 @@ void Game::playTurn()
 
     else if (card1.getRank() == card2.getRank()) // teko
     {
-        this->tekoTimeCountAdd();
+        tekoTimeCountAdd();
         if (this->p1.cardsToPlaySize() == 0) // this is the last card
         {
+            int teplus = this->geteko_time();
+            this->setteko_time(teplus + 1);
             this->winTurn = "teko";
 
             this->p1.setcardsTaken(this->p1.getcardsTaken() + 1);
@@ -304,6 +312,10 @@ void Game::printLog()
         {
             cout << "Draw ";
         }
+        else
+        {
+            cout << "\n";
+        }
         this->allMooves1.pop_back();
         this->allMooves2.pop_back();
     }
@@ -320,6 +332,7 @@ void Game::printLog()
 /*******************************************************************************************************************************/
 void Game::printStats()
 {
+    printLog();
     int rounds = 26 - this->geteko_time();
     double sec1 = (p1.getWinsOfRounds() * 100) / this->getrounds();
     double sec2 = (p2.getWinsOfRounds() * 100) / this->getrounds();
