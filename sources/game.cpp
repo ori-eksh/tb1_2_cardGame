@@ -66,7 +66,7 @@ void Game::Reset_package() // Initializing a deck of cards
 }
 /********************************************************************************************************************************/
 /*shuffling the cards*/
-void Game::Card_shuffling()
+void Game::Card_shuffling() // I consulted with Alon mwshulam
 {
     /*choos random num*/
 
