@@ -56,9 +56,9 @@ void Game::Reset_package() // Initializing a deck of cards
     cards.clear(); // clear the current deck of cards
 
     // add all 52 cards to the deck
-    for (int i = 1; i <= 13; i++)
+    for (int i = 2; i <= 14; i++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 1; j < 5; j++)
         {
             this->cards.push_back(Card(static_cast<Rank>(i), static_cast<Suit>(j)));
         }
