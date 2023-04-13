@@ -334,22 +334,22 @@ void Game::printStats()
 {
     printLog();
     int rounds = 26 - this->geteko_time();
-    double sec1 = (p1.getWinsOfRounds() * 100) / this->getrounds();
-    double sec2 = (p2.getWinsOfRounds() * 100) / this->getrounds();
-    double tekostatic = (this->getTekoTime() * 100) / this->getrounds();
+    double sec1 = (p1.getWinsOfRounds() * 100) / (double)this->getrounds();
+    double sec2 = (p2.getWinsOfRounds() * 100) / (double)this->getrounds();
+    double tekostatic = (this->getTekoTime() * 100) / (double)this->getrounds();
 
     cout << "player 1 - ";
     cout << this->p1.getName();
     cout << " win ";
     cout << this->p1.getWinsOfRounds() << " times, from " << rounds << " rounds.(without the teko time)\n";
-    cout << "winning percentage: " << sec1 << "%\n";
+    cout << "winning percentage: " << (int)sec1 << "%\n";
 
     cout << "player 2 - ";
     cout << this->p2.getName();
     cout << " win ";
     cout << this->p2.getWinsOfRounds() << " times, from " << rounds << " rounds.(without the teko time)\n";
-    cout << "winning percentage: " << sec2 << "%\n";
+    cout << "winning percentage: " << (int)sec2 << "%\n";
     cout << "teko times: " << this->getTekoTime() << "\n";
-    cout << "teko percentage: " << tekostatic << "%\n";
+    cout << "teko percentage: " << (int)tekostatic << "%\n";
     // ori 213562069
 }
